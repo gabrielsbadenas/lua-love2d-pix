@@ -7,7 +7,23 @@
 -- script:  lua
 hangul={
 g=256,
-
+kk=257,
+n=258,
+d=259,
+dd=260,
+r=261,
+m=262,
+b=272,
+bb=273,
+s=274,
+ss=275,
+ng=276,
+j=277,
+jj=278,
+ch=288,k=289,t=290,p=291,h=292,a=293,ae=294,
+ya=304,yae=305,eo=306,e=307,yeo=308,ye=309,o=310,
+wa=320,wae=321,wi=322,yo=323,u=324,wo=325,we=326,
+ui=336,yu=337,punto=338,coma=339,eu=340,eui=341,i=342
 }
 maxSpeed=16
 t=0
@@ -310,6 +326,6 @@ end
 -- </TRACKS>
 
 -- <PALETTE>
--- 000:000000fa00faff0000ff7d04ffff000cfa1038b76404717929366f3b5dc90000ff00fffff4f4f494b0c2566c86333c57
+-- 000:000000fa00faff0000ff7d04ffff000cfa1038b76404717929366f3b5dc90000ff00fffff4baf494b0c2566c86333c57
 -- </PALETTE>
 
