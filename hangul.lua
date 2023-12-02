@@ -6,6 +6,7 @@
 -- version: 0.1
 -- script:  lua
 hangul={
+consonants={
 g=256,
 kk=257,
 n=258,
@@ -20,11 +21,13 @@ ss=275,
 ng=276,
 j=277,
 jj=278,
-ch=288,k=289,t=290,p=291,h=292,a=293,ae=294,
+ch=288,k=289,t=290,p=291,h=292},
+vowels={
+a=293,ae=294,
 ya=304,yae=305,eo=306,e=307,yeo=308,ye=309,o=310,
 wa=320,wae=321,wi=322,yo=323,u=324,wo=325,we=326,
 ui=336,yu=337,punto=338,coma=339,eu=340,eui=341,i=342
-}
+}}
 maxSpeed=16
 t=0
 position={
@@ -110,8 +113,12 @@ end
 function TIC()
 	input()
 	rect(16,100,resolution.x-16,50,4)
-	spr(hangul.g,100,100,12)	
-	spr(304,108,100,12)
+	spr(hangul.consonants.jj,100,100,12)	
+	--spr(hangul.vowels.e,106,100,12)	
+	--spr(hangul.vowels.o,100,105,12)	
+	spr(hangul.vowels.wa,103,105,12)
+		
+	--spr(hangul.consonants.jj,100,108,12)
 end
 -- <TILES>
 -- 001:eccccccccc888888caaaaaaaca888888cacccccccacc0ccccacc0ccccacc0ccc
@@ -151,10 +158,10 @@ end
 -- 016:cccccccccccccccccc0ccc0ccc00000ccc0ccc0ccc0ccc0ccc00000ccccccccc
 -- 017:ccccccccccccccccc0c0c0c0c000c000c0c0c0c0c0c0c0c0c000c000cccccccc
 -- 018:cccccccccccccccccccc0ccccccc0ccccccc0cccccc0c0cccc0ccc0cc0cccccc
--- 019:ccccccccccc0ccccccc0cc0cccc0cc0ccc0c0c0cc0ccc0c0cccc0cccccc0cccc
--- 020:cccccccccccc0cccccc000cccc0ccc0ccc0ccc0ccc0ccc0c0cc000cccccccccc
+-- 019:cccccccccc0ccccccc0cc0cccc0cc0ccc0c0c0cc0ccc0c0cccc0ccc0cc0ccccc
+-- 020:cccccccccccc0cccccc000cccc0ccc0ccc0ccc0ccc0ccc0cccc000cccccccccc
 -- 021:cccccccccccccccccc00000ccccc0ccccccc0cccccc0c0cccc0ccc0cc0cccccc
--- 022:ccccccccc0000cccccc0c000ccc0cc0ccc0c0c0cc0ccc0c0cccc0cccccc0cccc
+-- 022:cccccccc0000cccccc0c0000cc0cc0ccc0c0c0cc0ccc0c0cccc0ccc0cc0ccccc
 -- 023:cc000000cc0000000c000000cc000000cc000000cc0000000c000000cc000000
 -- 032:ccccccccccc000cccccccccccc00000ccccc0cccccc0c0cccc0ccc0cc0cccccc
 -- 033:cccccccccccccccccc00000ccccccc0ccc00000ccccccc0ccccccc0ccccccccc
