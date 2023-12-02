@@ -21,8 +21,10 @@ ss=275,
 ng=276,
 j=277,
 jj=278,
-ch=288,k=289,t=290,p=291,h=292},
-vowels={
+ch=288,k=289,t=290,p=291,h=292,
+null=352
+},
+vowels={null=352,
 a=293,ae=294,
 ya=304,yae=305,eo=306,e=307,yeo=308,ye=309,o=310,
 wa=320,wae=321,wi=322,yo=323,u=324,wo=325,we=326,
@@ -114,20 +116,23 @@ function TIC()
 	input()
 	rect(16,100,resolution.x-16,50,4)
 end
-function syllable(c1,v1,v2,c1)
+function syllable(c1,v1,v2,v3,c2)
+	indexeas={}
 	consonant={
-		hangul.consonants.jj,100,100,12
+		hangul.consonants[c1],100,100,12
 	}
 	rightVowel={
-		hangul.vowels.a,106,100,12
+		hangul.vowels[v1],106,100,12
 	}
 	downVowel={
-		hangul.vowels.eu,100,105,12
+		hangul.vowels[v2],100,105,12
 	}
 	finalConsonant={
-		hangul.consonants.jj,100,111,12
+		hangul.consonants[c2],100,111,12
 	}
-	spr(table.unpack(consonant))--hangul.consonants.jj,100,100,12)	
+	diphthong={hangul.vowels[v3],	103,105,12}
+	spr(table.unpack(consonant))
+	--hangul.consonants.jj,100,100,12)	
 	spr(table.unpack(rightVowel))	
 	spr(table.unpack(downVowel))
 	spr(
