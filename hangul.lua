@@ -114,13 +114,53 @@ function input()
 end
 function TIC()
 	input()
-	rect(16,100,resolution.x-16,50,4)
-	syllable(100,100,'g','a')
-	syllable(114,100,'b','i')
+	--rect(16,100,resolution.x-16,50,4)
+	--hiatus(100,80,'jj','wa','jj')
+	--syllable(100,100,'g','a')
+	--syllable(114,100,'b','i')
+	--vertical(128,100,'r','eu','r')
+	--cls(12)
+	matrix()
+end
+function horizontal(x,y,c1,v1,c2)
+	syllable(x,y,c1,v1,nil,nil,c2,8)
+end
+function matrix()
+	w=14
+	h=20
+	print(240/w,100,100)
+	print(136/h,110,110)
+	print(17*6,120,120)
+	syllables={
+		{1,'j','eo'},{2,'n','eu','n'},{1--,'z','z'
+		},
+		{1,'g','a'},
+		{2,'b','eu'},
+		{1,'r','i'},{1,'ng','e','r'},{1,'ng','i'},{1,'ng','e'},
+		{2,'ng','yo'}
+	}
+	for i=1,#syllables do 
+		cluster=syllables[i]
+		type=cluster[1]
+		if type == 1 then
+			horizontal(i*14,0,cluster[2],cluster[3],cluster[4])
+		end
+		if type == 2 then
+			vertical(i*14,0,cluster[2],cluster[3],cluster[4])
+		end	
+	end
+end
+function vertical(x,y,c1,v2,c2)
+	syllable(x,y,c1,nil,v2,nil,c2)
 end
 
-function syllable(x,y,c1,v1,v2,v3,c2)
+function hiatus(x,y,c1,v3,c2)
+	syllable(x,y,c1,nil,nil,v3,c2)
+end
+
+function syllable(x,y,c1,v1,v2,v3,c2,batchim)
 	transparent=12
+	if batchim==nil then batchim = 11 end
 	consonant={
 		hangul.consonants[c1],x,y,transparent
 	}
@@ -131,9 +171,9 @@ function syllable(x,y,c1,v1,v2,v3,c2)
 		hangul.vowels[v2],x,y+5,transparent
 	}
 	finalConsonant={
-		hangul.consonants[c2],x,y+11,transparent
+		hangul.consonants[c2],x,y+batchim,transparent
 	}
-	diphthong={hangul.vowels[v3],	103,105,12}
+	diphthong={hangul.vowels[v3],	x+4,y+5,12}
 	spr(table.unpack(consonant))
 	--hangul.consonants.jj,100,100,12)	
 	spr(table.unpack(rightVowel))	
