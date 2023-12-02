@@ -114,6 +114,17 @@ end
 function TIC()
 	input()
 	matrix()
+	stringToTable()
+end
+function stringToTable()
+	string='g_a_ b_i_'
+	tabla={{}}
+	j=1
+	k=1
+	for i=1,#string do 
+	 table.insert(tabla,string[i])
+	end
+	return tabla
 end
 function horizontal(x,y,c1,v1,c2)
 	syllable(x,y,c1,v1,nil,nil,c2,8)
