@@ -5,30 +5,30 @@
 -- license: MIT License (change this to your license of choice)
 -- version: 0.1
 -- script:  lua
-hangul={z=352,
+hangul={z_=352,
 consonants={
-g=256,
+g_=256,
 kk=257,
-n=258,
-d=259,
+n_=258,
+d_=259,
 dd=260,
-r=261,
-m=262,
-b=272,
+r_=261,
+m_=262,
+b_=272,
 bb=273,
-s=274,
+s_=274,
 ss=275,
 ng=276,
-j=277,
+j_=277,
 jj=278,
-ch=288,k=289,t=290,p=291,h=292,
-z=352
+ch=288,k_=289,t_=290,p_=291,h_=292,
+z_=352
 },
 vowels={z=352,
-a=293,ae=294,
-ya=304,yae=305,eo=306,e=307,yeo=308,ye=309,o=310,
-wa=320,wae=321,wi=322,yo=323,u=324,wo=325,we=326,
-ui=336,yu=337,punto=338,coma=339,eu=340,eui=341,i=342
+a_=293,ae=294,
+ya=304,yE=305,eo=306,e_=307,yO=308,ye=309,o_=310,
+wa=320,wE=321,wi=322,yo=323,u_=324,wo=325,we=326,
+ui=336,yu=337,pt=338,cm=339,eu=340,Ui=341,i_=342
 }}
 maxSpeed=16
 t=0
@@ -123,11 +123,12 @@ function matrix()
 	h=20
 	tiles={x=17,y=6}
 	syllables={
-		{1,'j','eo'},{2,'n','eu','n'},{1--,'z','z'
+		{1,'j_','eo'},{2,'n_','eu','n_'},{1--,'z','z'
 		},
-		{1,'g','a'},
-		{2,'b','eu'},
-		{1,'r','i'},{1,'ng','e','r'},{1,'ng','i'},{1,'ng','e'},
+		{1,'g_','a_'},
+		{2,'b_','eu'},
+		{1,'r_','i_'},{1,'ng','e_','r_'},
+		{1,'ng','i_'},{1,'ng','e_'},
 		{2,'ng','yo'}
 	}
 	for i=1,#syllables do 
@@ -144,6 +145,7 @@ function matrix()
 		end	
 	end
 end
+
 function vertical(x,y,c1,v2,c2)
 	syllable(x,y,c1,nil,v2,nil,c2)
 end
