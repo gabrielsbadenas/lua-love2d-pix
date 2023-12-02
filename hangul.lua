@@ -5,7 +5,7 @@
 -- license: MIT License (change this to your license of choice)
 -- version: 0.1
 -- script:  lua
-hangul={null=352,
+hangul={z=352,
 consonants={
 g=256,
 kk=257,
@@ -22,9 +22,9 @@ ng=276,
 j=277,
 jj=278,
 ch=288,k=289,t=290,p=291,h=292,
-null=352
+z=352
 },
-vowels={null=352,
+vowels={z=352,
 a=293,ae=294,
 ya=304,yae=305,eo=306,e=307,yeo=308,ye=309,o=310,
 wa=320,wae=321,wi=322,yo=323,u=324,wo=325,we=326,
@@ -115,20 +115,23 @@ end
 function TIC()
 	input()
 	rect(16,100,resolution.x-16,50,4)
+	syllable(100,100,'g','a')
+	syllable(114,100,'b','i')
 end
-function syllable(c1,v1,v2,v3,c2)
-	indexeas={}
+
+function syllable(x,y,c1,v1,v2,v3,c2)
+	transparent=12
 	consonant={
-		hangul.consonants[c1],100,100,12
+		hangul.consonants[c1],x,y,transparent
 	}
 	rightVowel={
-		hangul.vowels[v1],106,100,12
+		hangul.vowels[v1],x+6,y,transparent
 	}
 	downVowel={
-		hangul.vowels[v2],100,105,12
+		hangul.vowels[v2],x,y+5,transparent
 	}
 	finalConsonant={
-		hangul.consonants[c2],100,111,12
+		hangul.consonants[c2],x,y+11,transparent
 	}
 	diphthong={hangul.vowels[v3],	103,105,12}
 	spr(table.unpack(consonant))
@@ -138,8 +141,12 @@ function syllable(c1,v1,v2,v3,c2)
 	spr(
 	table.unpack(finalConsonant)
 	)
+	spr(
+	table.unpack(diphthong)
+	)
 end
 -- <TILES>
+-- 000:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 -- 001:eccccccccc888888caaaaaaaca888888cacccccccacc0ccccacc0ccccacc0ccc
 -- 002:ccccceee8888cceeaaaa0cee888a0ceeccca0ccc0cca0c0c0cca0c0c0cca0c0c
 -- 003:eccccccccc888888caaaaaaaca888888cacccccccacccccccacc0ccccacc0ccc
