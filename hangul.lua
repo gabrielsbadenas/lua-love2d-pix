@@ -5,7 +5,7 @@
 -- license: MIT License (change this to your license of choice)
 -- version: 0.1
 -- script:  lua
-hangul={
+hangul={null=352,
 consonants={
 g=256,
 kk=257,
@@ -113,12 +113,26 @@ end
 function TIC()
 	input()
 	rect(16,100,resolution.x-16,50,4)
-	spr(hangul.consonants.jj,100,100,12)	
-	--spr(hangul.vowels.e,106,100,12)	
-	--spr(hangul.vowels.o,100,105,12)	
-	spr(hangul.vowels.wa,103,105,12)
-		
-	--spr(hangul.consonants.jj,100,108,12)
+end
+function syllable(c1,v1,v2,c1)
+	consonant={
+		hangul.consonants.jj,100,100,12
+	}
+	rightVowel={
+		hangul.vowels.a,106,100,12
+	}
+	downVowel={
+		hangul.vowels.eu,100,105,12
+	}
+	finalConsonant={
+		hangul.consonants.jj,100,111,12
+	}
+	spr(table.unpack(consonant))--hangul.consonants.jj,100,100,12)	
+	spr(table.unpack(rightVowel))	
+	spr(table.unpack(downVowel))
+	spr(
+	table.unpack(finalConsonant)
+	)
 end
 -- <TILES>
 -- 001:eccccccccc888888caaaaaaaca888888cacccccccacc0ccccacc0ccccacc0ccc
@@ -159,7 +173,7 @@ end
 -- 017:ccccccccccccccccc0c0c0c0c000c000c0c0c0c0c0c0c0c0c000c000cccccccc
 -- 018:cccccccccccccccccccc0ccccccc0ccccccc0cccccc0c0cccc0ccc0cc0cccccc
 -- 019:cccccccccc0ccccccc0cc0cccc0cc0ccc0c0c0cc0ccc0c0cccc0ccc0cc0ccccc
--- 020:cccccccccccc0cccccc000cccc0ccc0ccc0ccc0ccc0ccc0cccc000cccccccccc
+-- 020:ccccccccccccccccccc000cccc0ccc0ccc0ccc0ccc0ccc0cccc000cccccccccc
 -- 021:cccccccccccccccccc00000ccccc0ccccccc0cccccc0c0cccc0ccc0cc0cccccc
 -- 022:cccccccc0000cccccc0c0000cc0cc0ccc0c0c0cc0ccc0c0cccc0ccc0cc0ccccc
 -- 023:cc000000cc0000000c000000cc000000cc000000cc0000000c000000cc000000
@@ -195,7 +209,7 @@ end
 -- 085:ccccccccccccccc0ccccccc0ccccccc0ccccccc0c0000000ccccccc0ccccccc0
 -- 086:cccccccccccc0ccccccc0ccccccc0ccccccc0ccccccc0ccccccc0ccccccc0ccc
 -- 087:cc000000cc000000cc000000cc000000cc000000cc000000cc000000cc000000
--- 096:cccccccccccccccc000000000000000000000000000000000000000000000000
+-- 096:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 -- 097:cccccccccccccccc000000000000000000000000000000000000000000000000
 -- 098:cccccccccccccccc000000000000000000000000000000000000000000000000
 -- 099:cccccccccccccccc000000000000000000000000000000000000000000000000
