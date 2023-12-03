@@ -5,31 +5,16 @@
 -- license: MIT License (change this to your license of choice)
 -- version: 0.1
 -- script:  lua
-hangul={z_=352,
-consonants={
-g_=256,
-kk=257,
-n_=258,
-d_=259,
-dd=260,
-r_=261,
-m_=262,
-b_=272,
-bb=273,
-s_=274,
-ss=275,
-ng=276,
-j_=277,
-jj=278,
-ch=288,k_=289,t_=290,p_=291,h_=292,
-z_=352
-},
-vowels={z=352,
-a_=293,ae=294,
-ya=304,yE=305,eo=306,e_=307,yO=308,ye=309,o_=310,
-wa=320,wE=321,wi=322,yo=323,u_=324,wo=325,we=326,
-ui=336,yu=337,pt=338,cm=339,eu=340,Ui=341,i_=342
-}}
+hangul={
+	z_=352,
+	consonants={g_=256,kk=257,n_=258,d_=259,dd=260,r_=261,m_=262,b_=272,bb=273,s_=274,ss=275,
+	ng=276,j_=277,jj=278,ch=288,k_=289,t_=290,p_=291,h_=292,z_=352,O_=276,l_=261
+	},
+	vowels={	
+		z=352,a_=293,ae=294,ya=304,yE=305,eo=306,e_=307,yO=308,ye=309,o_=310,wa=320,wE=321,
+		wi=322,yo=323,u_=324,wo=325,we=326,ui=336,yu=337,pt=338,cm=339,eu=340,Ui=341,i_=342
+	}
+}
 maxSpeed=16
 t=0
 position={
@@ -72,9 +57,6 @@ function input()
 	if count==0 then	
 		speed=0
 	end
---	if count==2 then 
-		--speed=(speed/math.sqrt(2))*(speed*2) 
---	end
 	pixel={
 		x=position.x/subpixelsPerPixel,
 		y=position.y/subpixelsPerPixel
@@ -122,7 +104,7 @@ function stringToTable()
 	j=1
 	k=1
 	for i=1,#string do 
-	 table.insert(tabla,string[i])
+		table.insert(tabla,string[i])
 	end
 	return tabla
 end
@@ -134,11 +116,9 @@ function matrix()
 	h=20
 	tiles={x=17,y=6}
 	syllables={
-		{1,'j_','eo'},{2,'n_','eu','n_'},{1--,'z','z'
-		},
-		{1,'g_','a_'},
-		{2,'b_','eu'},
-		{1,'r_','i_'},{1,'ng','e_','r_'},
+		{1,'j_','eo'},{2,'n_','eu','n_'},
+		{1},
+		{1,'g_','a_'},{2,'b_','eu'},{1,'r_','i_'},{1,'O_','e_','l_'},
 		{1,'ng','i_'},{1,'ng','e_'},
 		{2,'ng','yo'}
 	}
@@ -180,17 +160,18 @@ function syllable(x,y,c1,v1,v2,v3,c2,batchim)
 	finalConsonant={
 		hangul.consonants[c2],x,y+batchim,transparent
 	}
-	diphthong={hangul.vowels[v3],	x+4,y+5,12}
-	spr(table.unpack(consonant))
-	--hangul.consonants.jj,100,100,12)	
-	spr(table.unpack(rightVowel))	
-	spr(table.unpack(downVowel))
-	spr(
-	table.unpack(finalConsonant)
-	)
-	spr(
-	table.unpack(diphthong)
-	)
+	diphthong={
+		hangul.vowels[v3],x+4,y+5,12
+	}
+	sprite(consonant)
+	sprite(rightVowel)	
+	sprite(downVowel)
+	sprite(finalConsonant)
+	sprite(diphthong)
+end
+
+function sprite(letter)
+	spr(table.unpack(letter))
 end
 -- <TILES>
 -- 000:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
