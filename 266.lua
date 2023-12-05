@@ -6,6 +6,10 @@
 -- version: 0.1
 -- script:  lua
 
+function vowelType(v)
+	s={aa=1,ii=2}
+	return s[v]~=nil
+end
 x=96
 y=24
 s='j_eo--n_eun_  ggaa--bbii'
@@ -30,15 +34,11 @@ for i=0,#t do
 	if t[i]~=nil then
 	if t[i][1]~=1 then
 		vowel=t[i][2]
-		if vowel=='aa' then
+		if vowelType(vowel) then--=='aa' then
 			table.insert(t[i],2)
 		end
 	end
 end
-end
-function vowelType(v)
-	s={aa=1,ii=2}
-	return s[v]~=nil
 end
 function TIC()
 
