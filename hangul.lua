@@ -122,14 +122,15 @@ function vowelType(s)
 		wi=322,wo=325,we=326,ui=336,
 		pt=338,cm=339,Ui=341}
 	type=0
-	if horizontal[s] then type=1 end
-	if vertical[s] then type=2 end
-	if diphthong[s] then type=3 end
+	if horizontal[s]~=nil then type=1 end
+	if vertical[s]~=nil then type=2 end
+	if diphthong[s]~=nil then type=3 end
+	print(s,0,0)
 	return type
 
 end
 function stringToTable()
-	s="g_a_  b_i_"
+	s="g_a_44b_i_"
 	tabla={{}}
 	j=1
 	k=1
@@ -137,15 +138,27 @@ function stringToTable()
 	stringLength=#s
 	while i<stringLength do 
 		letter=string.sub(s,i,2)
-		if letter=='  ' then table.insert(tabla,{}) end
-		if letter~='  ' then 
-		table.insert(tabla[#tabla],letter) end
-		i=i+2
+		print(letter,69,44)
+		if letter=='44' then 
+		table.insert(tabla,{}) 
+		j=j+1
+		end
+		if letter~='44' then 
+		table.insert(tabla[j],letter) end
+		i=i+1
 	end
+--	for i=0,
+	print(#s,0,100)
+	for i=1,#tabla do for j=1,#tabla[i] do end 
+		print(4 .. tabla[i][j],i*	16,j*16)
+	end
+	print(tabla[1][2] .. i,40,40)
 	for i=1,#tabla do
-		type=vowelType(tabla[i][2]) 
-		table.insert(tabla,type)--tengo que insertarlo primero
+		type=vowelType(tabla[i][2])
+		print(tabla[i][2],32,32) 
+		table.insert(tabla[i],type)--tengo que insertarlo primero
 	end
+	
 		print(--string.sub(s,1,2)
 		#s,100,100)
 		return tabla
@@ -165,6 +178,7 @@ function matrix(s)
 		{2,'ng','yo'}
 	}
 	syllables=stringToTable()
+	print(syllables[1][1],64,64)
 	for i=1,#syllables do 
 		cluster=syllables[i]
 		type=cluster[#cluster]--1]
@@ -172,10 +186,10 @@ function matrix(s)
 		if type == 1 then
 			horizontal(
 			x,
-			0,cluster[2],cluster[3],cluster[4])
+			0,cluster[1],cluster[2],cluster[3])
 		end
 		if type == 2 then
-			vertical(x,0,cluster[2],cluster[3],cluster[4])
+			vertical(x,0,cluster[1],cluster[2],cluster[3])
 		end	
 	end
 end
