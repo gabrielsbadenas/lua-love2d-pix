@@ -113,27 +113,47 @@ function TIC()
 	matrix()
 	stringToTable()
 end
+function vowelType(s)
+	horizontal={a_=293,ae=294,ya=304,yE=305,eo=306,e_=307,
+	yO=308,ye=309,i_=342}
+	
+	vertical={o_=310,eu=340,yo=323,u_=324,yu=337}
+	diphthong={wa=320,wE=321,
+		wi=322,wo=325,we=326,ui=336,
+		pt=338,cm=339,Ui=341}
+	type=0
+	if horizontal[s] then type=1 end
+	if vertical[s] then type=2 end
+	if diphthong[s] then type=3 end
+	return type
+
+end
 function stringToTable()
-	s="g_a_ b_i_"
-	tabla={}--{}}
+	s="g_a_  b_i_"
+	tabla={{}}
 	j=1
 	k=1
-	for i=1,(#string)/2 do 
-		table.insert(tabla,s[i])
-		table.insert(tabla,s[i+1])
+	i=1
+	stringLength=#s
+	while i<stringLength do 
+		letter=string.sub(s,i,2)
+		if letter=='  ' then table.insert(tabla,{}) end
+		if letter~='  ' then 
+		table.insert(tabla[#tabla],letter) end
+		i=i+2
 	end
-		print(string.sub(s,1,2),--tabla[i]
-		200,100)--,math.random(0,230),math.random(0,120))
-	for i=1,#tabla do 
-		print(string--tabla[i]
-		,200,100)--,math.random(0,230),math.random(0,120))
+	for i=1,#tabla do
+		type=vowelType(tabla[i][2]) 
+		table.insert(tabla,type)--tengo que insertarlo primero
 	end
-	return tabla
+		print(--string.sub(s,1,2)
+		#s,100,100)
+		return tabla
 end
 function horizontal(x,y,c1,v1,c2)
 	syllable(x,y,c1,v1,nil,nil,c2,8)
 end
-function matrix()
+function matrix(s)
 	w=14
 	h=20
 	tiles={x=17,y=6}
@@ -144,9 +164,10 @@ function matrix()
 		{1,'ng','i_'},{1,'ng','e_'},
 		{2,'ng','yo'}
 	}
+	syllables=stringToTable()
 	for i=1,#syllables do 
 		cluster=syllables[i]
-		type=cluster[1]
+		type=cluster[#cluster]--1]
 		x=(i-1)*14
 		if type == 1 then
 			horizontal(
