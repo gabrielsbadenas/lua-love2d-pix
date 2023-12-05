@@ -8,23 +8,37 @@
 
 x=96
 y=24
-s='j_eo  n_eun_;;ggaa  bbii'
+s='j_eo--n_eun_  ggaa--bbii'
 t={{}}
 i=1
 while i<#s do
 	substring=string.sub(s,i,i+1)
-	if substring=='  ' then 
+	if substring=='--' then 
 	table.insert(t,{})end
-	if substring~='  ' and
-		substring~=';;'
+	if substring~='--' and
+		substring~='  '
 	 then
 	table.insert(t[#t],substring)
 	end
-	if substring==';;' then
+	if substring=='  ' then
 	table.insert(t,{1}) 
 	table.insert(t,{})
 	end
 	i=i+2
+end
+for i=0,#t do
+	if t[i]~=nil then
+	if t[i][1]~=1 then
+		vowel=t[i][2]
+		if vowel=='aa' then
+			table.insert(t[i],2)
+		end
+	end
+end
+end
+function vowelType(v)
+	s={aa=1,ii=2}
+	return s[v]~=nil
 end
 function TIC()
 
@@ -36,6 +50,7 @@ function TIC()
 	cls(13)
 	print("HELLO WORLD!",84,84)
 	for i=1,#t do
+		print(t[i],100,i*16)
 		for j=1,#t[i] do
 			print(t[i][j],j*16,i*16)
 		end
