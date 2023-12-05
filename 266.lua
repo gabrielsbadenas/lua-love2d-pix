@@ -6,10 +6,26 @@
 -- version: 0.1
 -- script:  lua
 
-t=0
 x=96
 y=24
-
+s='j_eo  n_eun_;;ggaa  bbii'
+t={{}}
+i=1
+while i<#s do
+	substring=string.sub(s,i,i+1)
+	if substring=='  ' then 
+	table.insert(t,{})end
+	if substring~='  ' and
+		substring~=';;'
+	 then
+	table.insert(t[#t],substring)
+	end
+	if substring==';;' then
+	table.insert(t,{1}) 
+	table.insert(t,{})
+	end
+	i=i+2
+end
 function TIC()
 
 	if btn(0) then y=y-1 end
@@ -18,9 +34,12 @@ function TIC()
 	if btn(3) then x=x+1 end
 
 	cls(13)
-	spr(1+t%60//30*2,x,y,14,3,0,0,2,2)
 	print("HELLO WORLD!",84,84)
-	t=t+1
+	for i=1,#t do
+		for j=1,#t[i] do
+			print(t[i][j],j*16,i*16)
+		end
+	end
 end
 
 -- <TILES>
