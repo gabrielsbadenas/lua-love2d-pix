@@ -110,11 +110,11 @@ function TIC()
 	stringToTable()
 end
 function vowelType(s)
-	horizontal={a_=293,ae=294,ya=304,yE=305,eo=306,e_=307,
+ local	horizontal={a_=293,ae=294,ya=304,yE=305,eo=306,e_=307,
 	yO=308,ye=309,i_=342}
 	
-	vertical={o_=310,eu=340,yo=323,u_=324,yu=337}
-	diphthong={wa=320,wE=321,
+	local vertical={o_=310,eu=340,yo=323,u_=324,yu=337}
+	local diphthong={wa=320,wE=321,
 		wi=322,wo=325,we=326,ui=336,
 		pt=338,cm=339,Ui=341}
 	type=0
@@ -126,7 +126,7 @@ function vowelType(s)
 
 end
 function stringToTable()
-s='j_eo--n_eun_  ggaa--bbii'
+s='j_eo--n_eun_  g_a_--b_i_'
 local t={{}}
 i=1
 while i<#s do
@@ -148,11 +148,9 @@ for i=1,#t do
 	if t[i]~=nil then
 	if t[i][1]~=1 then
 		vowel=t[i][2]
-		if vowelType(vowel) then--=='aa' then
-			table.insert(t[i],2)
+			table.insert(t[i],vowelType(vowel))
 		end
 	end
-end
 end
 		return t
 end
@@ -175,14 +173,14 @@ function matrix(s)
 	for i=1,#syllables do 
 		cluster=syllables[i]
 		type=cluster[#cluster]--1]
-		x=(i-1)*14
+		local x=(i-1)*14
 		if type == 1 then
-			horizontal(
-			x,
+			horizontal(x,
 			0,cluster[1],cluster[2],cluster[3])
 		end
 		if type == 2 then
-			vertical(x,0,cluster[1],cluster[2],cluster[3])
+			vertical(x,0,cluster[1],cluster[2]
+			,cluster[3])
 		end	
 	end
 end
