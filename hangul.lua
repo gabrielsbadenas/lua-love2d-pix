@@ -5,6 +5,56 @@
 -- license: MIT License (change this to your license of choice)
 -- version: 0.1
 -- script:  lua
+function vowelType(v)
+	s={aa=1,ii=2}
+	return s[v]~=nil
+end
+x=96
+y=24
+s='j_eo--n_eun_  ggaa--bbii'
+t={{}}
+i=1
+while i<#s do
+	substring=string.sub(s,i,i+1)
+	if substring=='--' then 
+	table.insert(t,{})end
+	if substring~='--' and
+		substring~='  '
+	 then
+	table.insert(t[#t],substring)
+	end
+	if substring=='  ' then
+	table.insert(t,{1}) 
+	table.insert(t,{})
+	end
+	i=i+2
+end
+for i=0,#t do
+	if t[i]~=nil then
+	if t[i][1]~=1 then
+		vowel=t[i][2]
+		if vowelType(vowel) then--=='aa' then
+			table.insert(t[i],2)
+		end
+	end
+end
+end
+function TIC()
+
+	if btn(0) then y=y-1 end
+	if btn(1) then y=y+1 end
+	if btn(2) then x=x-1 end
+	if btn(3) then x=x+1 end
+
+	cls(13)
+	print("HELLO WORLD!",84,84)
+	for i=1,#t do
+		print(t[i],100,i*16)
+		for j=1,#t[i] do
+			print(t[i][j],j*16,i*16)
+		end
+	end
+end
 
 tiles   = 1<<0 -- 1
 sprites = 1<<1 -- 2
