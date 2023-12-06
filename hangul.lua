@@ -5,56 +5,6 @@
 -- license: MIT License (change this to your license of choice)
 -- version: 0.1
 -- script:  lua
-function vowelType(v)
-	s={aa=1,ii=2}
-	return s[v]~=nil
-end
-x=96
-y=24
-s='j_eo--n_eun_  ggaa--bbii'
-t={{}}
-i=1
-while i<#s do
-	substring=string.sub(s,i,i+1)
-	if substring=='--' then 
-	table.insert(t,{})end
-	if substring~='--' and
-		substring~='  '
-	 then
-	table.insert(t[#t],substring)
-	end
-	if substring=='  ' then
-	table.insert(t,{1}) 
-	table.insert(t,{})
-	end
-	i=i+2
-end
-for i=0,#t do
-	if t[i]~=nil then
-	if t[i][1]~=1 then
-		vowel=t[i][2]
-		if vowelType(vowel) then--=='aa' then
-			table.insert(t[i],2)
-		end
-	end
-end
-end
-function TIC()
-
-	if btn(0) then y=y-1 end
-	if btn(1) then y=y+1 end
-	if btn(2) then x=x-1 end
-	if btn(3) then x=x+1 end
-
-	cls(13)
-	print("HELLO WORLD!",84,84)
-	for i=1,#t do
-		print(t[i],100,i*16)
-		for j=1,#t[i] do
-			print(t[i][j],j*16,i*16)
-		end
-	end
-end
 
 tiles   = 1<<0 -- 1
 sprites = 1<<1 -- 2
@@ -65,11 +15,7 @@ palette = 1<<5 -- 32
 flags   = 1<<6 -- 64
 screen  = 1<<7 -- 128 (as of 0.90)
 bank = 0
---sync(tiles,bank)
---sync(sprites,bank)
---sync(tiles,bank)
---sync(palette,0)
---sync(map_,1)
+
 hangul={
 	z_=352,
 	consonants={g_=256,kk=257,n_=258,d_=259,dd=260,r_=261,m_=262,b_=272,bb=273,s_=274,ss=275,
@@ -180,38 +126,35 @@ function vowelType(s)
 
 end
 function stringToTable()
-	s="g_a_44b_i_"
-	tabla={{}}
-	j=1
-	k=1
-	i=1
-	stringLength=#s
-	while i<stringLength do 
-		letter=string.sub(s,i,2)
-		print(letter,69,44)
-		if letter=='44' then 
-		table.insert(tabla,{}) 
-		j=j+1
+s='j_eo--n_eun_  ggaa--bbii'
+local t={{}}
+i=1
+while i<#s do
+	substring=string.sub(s,i,i+1)
+	if substring=='--' then 
+	table.insert(t,{})end
+	if substring~='--' and
+		substring~='  '
+	 then
+	table.insert(t[#t],substring)
+	end
+	if substring=='  ' then
+	table.insert(t,{1}) 
+	table.insert(t,{})
+	end
+	i=i+2
+end
+for i=1,#t do
+	if t[i]~=nil then
+	if t[i][1]~=1 then
+		vowel=t[i][2]
+		if vowelType(vowel) then--=='aa' then
+			table.insert(t[i],2)
 		end
-		if letter~='44' then 
-		table.insert(tabla[j],letter) end
-		i=i+1
 	end
---	for i=0,
-	print(#s,0,100)
-	for i=1,#tabla do for j=1,#tabla[i] do end 
-		print(4 .. tabla[i][j],i*	16,j*16)
-	end
-	print(tabla[1][2] .. i,40,40)
-	for i=1,#tabla do
-		type=vowelType(tabla[i][2])
-		print(tabla[i][2],32,32) 
-		table.insert(tabla[i],type)--tengo que insertarlo primero
-	end
-	
-		print(--string.sub(s,1,2)
-		#s,100,100)
-		return tabla
+end
+end
+		return t
 end
 function horizontal(x,y,c1,v1,c2)
 	syllable(x,y,c1,v1,nil,nil,c2,8)
