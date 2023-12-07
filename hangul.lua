@@ -42,7 +42,9 @@ speed=0
 count=0
 function button(id,dimension)
 	local sign=id%2
-	if sign == 0 then sign=-1 end
+	if sign == 0 then 
+		sign=-1 
+	end
 	if btn(id) then 
 		speed=(1+speed)
 		local sum=(speed*sign)/count
@@ -51,9 +53,13 @@ function button(id,dimension)
 	end
 	return 'none'
 end
-local room={x=0,y=0}
+local room={
+	x=0,
+	y=0
+}
 local resolution={
-	x=240,y=136
+	x=240,
+	y=136
 }
 local tilePixels=8
 local subpixelsPerPixel=16
@@ -94,89 +100,129 @@ function input()
 		position.y=136*16 
 		room.y=room.y-1
 	end
+	
 	if pixel.y>136 then 
 		position.y=0 
 		room.y=room.y+1
 	end
-	if room.x<0 then room.x=7 end
-	if room.y<0 then room.y=7 end
 	
-	if room.x>7 then room.x=0 end
+	if room.x<0 then 
+		room.x=7 
+	end
 	
-	if room.y>7 then room.y=0 end
+	if room.y<0 then 
+		room.y=7 
+	end
+	
+	if room.x>7 then 
+		room.x=0 
+	end
+	
+	if room.y>7 then 
+		room.y=0 
+	end
 	rectb(0,0,resolution.x,resolution.y,5)
-	--spr(--math.random(0,subpixelsPerPixel-1)*subpixelsPerPixel,
-	rect(pixel.x,pixel.y,16,16,4)--1,1,0,0,1,1)
+	rect(pixel.x,pixel.y,16,16,4)
 	t=t+1
 	count=0
 end
+
 function TIC()
 	input()
 	matrix()
 	stringToTable()
 end
+
 function vowelType(s)
- local	horizontal={a_=293,ae=294,ya=304,yE=305,eo=306,e_=307,
-	yO=308,ye=309,i_=342}
+ local	horizontal={
+ 	a_=293,ae=294,ya=304,yE=305,eo=306,
+  e_=307,	yO=308,ye=309,i_=342
+ }
 	
-	local vertical={o_=310,eu=340,yo=323,u_=324,yu=337}
-	local diphthong={wa=320,wE=321,
-		wi=322,wo=325,we=326,ui=336,
-		pt=338,cm=339,Ui=341}
+	local vertical={
+		o_=310,eu=340,yo=323,u_=324,yu=337
+	}
+	local diphthong={
+		wa=320,wE=321,wi=322,wo=325,we=326,
+		ui=336,pt=338,cm=339,Ui=341
+	}
 	local type=0
-	if horizontal[s]~=nil then type=1 end
-	if vertical[s]~=nil then type=2 end
-	if diphthong[s]~=nil then type=3 end
+	
+	if horizontal[s]~=nil then 
+		type=1 
+	end
+	
+	if vertical[s]~=nil then 
+		type=2 
+	end
+	
+	if diphthong[s]~=nil then 
+		type=3 
+	end
+	
 	return type
 
 end
 function stringToTable()
-local s='j_eo--n_eun_  g_a_--b_i_'
-local t={{}}
-local i=1
-while i<#s do
-	substring=string.sub(s,i,i+1)
-	if substring=='--' then 
-	table.insert(t,{})end
-	if substring~='--' and
-		substring~='  '
-	 then
-	table.insert(t[#t],substring)
+	local s='j_eo--n_eun_  g_a_--b_i_'
+	local t={{}}
+	local i=1
+	while i<#s do
+		substring=string.sub(s,i,i+1)
+		
+		if substring=='--' then 
+			table.insert(t,{})
+		end
+		
+		if substring~='--' and 
+			substring~='  ' then
+				table.insert(t[#t],substring)
+		end
+		
+		if substring=='  ' then
+			table.insert(t,{1}) 
+			table.insert(t,{})
+		end
+		
+		i=i+2
 	end
-	if substring=='  ' then
-	table.insert(t,{1}) 
-	table.insert(t,{})
+	for i=1,#t do
+		if t[i][1]~=1 then
+			local vowel=t[i][2]
+			table.insert(t[i],vowelType(vowel))
+		end
 	end
-	i=i+2
+	return t
 end
-for i=1,#t do
-	if t[i][1]~=1 then
-		local vowel=t[i][2]
-		table.insert(t[i],vowelType(vowel))
-	end
-end
-		return t
-end
+
 function horizontal(x,y,c1,v1,c2)
 	syllable(x,y,c1,v1,nil,nil,c2,8)
 end
+
 function matrix(s)
 	local w=14
 	local h=20
 	local tiles={x=17,y=6}
 	local syllables=stringToTable()
-	print(syllables[1][1],64,64)
+
 	for i=1,#syllables do 
 		local cluster=syllables[i]
 		local type=cluster[#cluster]--1]
 		local x=(i-1)*14
+
 		if type == 1 then
 			horizontal(x,
 			0,cluster[1],cluster[2],cluster[3])
 		end
+
 		if type == 2 then
-			vertical(x,0,cluster[1],cluster[2]
-			,cluster[3])
+			vertical(x,0,cluster[1],cluster[2],
+			cluster[3])
+		end
+		
+		if type == 3 then
+			diphthong(x,0,cluster[1],
+				cluster[2],cluster[3])
 		end	
 	end
 end
