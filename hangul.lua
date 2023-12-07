@@ -6,29 +6,35 @@
 -- version: 0.1
 -- script:  lua
 
-tiles   = 1<<0 -- 1
-sprites = 1<<1 -- 2
-map_     = 1<<2 -- 4
-sfx_     = 1<<3 -- 8
-music_   = 1<<4 -- 16
-palette = 1<<5 -- 32
-flags   = 1<<6 -- 64
-screen  = 1<<7 -- 128 (as of 0.90)
-bank = 0
+local tiles = 1<<0 -- 1
+local sprites = 1<<1 -- 2
+local map_ = 1<<2 -- 4
+local sfx_ = 1<<3 -- 8
+local music_ = 1<<4 -- 16
+local palette = 1<<5 -- 32
+local flags = 1<<6 -- 64
+local screen = 1<<7 -- 128 (as of 0.90)
+local bank = 0
 
-hangul={
+local hangul={
 	z_=352,
-	consonants={g_=256,kk=257,n_=258,d_=259,dd=260,r_=261,m_=262,b_=272,bb=273,s_=274,ss=275,
-	ng=276,j_=277,jj=278,ch=288,k_=289,t_=290,p_=291,h_=292,z_=352,O_=276,l_=261
+	consonants={g_=256,kk=257,n_=258,
+	d_=259,dd=260,r_=261,m_=262,b_=272,
+	bb=273,s_=274,ss=275,ng=276,j_=277,
+	jj=278,ch=288,k_=289,t_=290,p_=291,
+	h_=292,z_=352,O_=276,l_=261
 	},
 	vowels={	
-		z=352,a_=293,ae=294,ya=304,yE=305,eo=306,e_=307,yO=308,ye=309,o_=310,wa=320,wE=321,
-		wi=322,yo=323,u_=324,wo=325,we=326,ui=336,yu=337,pt=338,cm=339,eu=340,Ui=341,i_=342
+		z=352,a_=293,ae=294,ya=304,yE=305,
+		eo=306,e_=307,yO=308,ye=309,o_=310,
+		wa=320,wE=321,wi=322,yo=323,u_=324,
+		wo=325,we=326,ui=336,yu=337,pt=338,
+		cm=339,eu=340,Ui=341,i_=342
 	}
 }
-maxSpeed=16
-t=0
-position={
+local maxSpeed=16
+local t=0
+local position={
 	x=96,
 	y=24
 }
@@ -39,18 +45,18 @@ function button(id,dimension)
 	if sign == 0 then sign=-1 end
 	if btn(id) then 
 		speed=(1+speed)
-		sum=(speed*sign)/count
+		local sum=(speed*sign)/count
 		position[dimension]=position[dimension]+sum
 		return id
 	end
 	return 'none'
 end
-room={x=0,y=0}
-resolution={
+local room={x=0,y=0}
+local resolution={
 	x=240,y=136
 }
-tilePixels=8
-subpixelsPerPixel=16
+local tilePixels=8
+local subpixelsPerPixel=16
 function input()
 	cls(13)
 	map(room.x*resolution.x/tilePixels,
@@ -68,7 +74,7 @@ function input()
 	if count==0 then	
 		speed=0
 	end
-	pixel={
+	local pixel={
 		x=position.x/subpixelsPerPixel,
 		y=position.y/subpixelsPerPixel
 	}
@@ -117,18 +123,17 @@ function vowelType(s)
 	local diphthong={wa=320,wE=321,
 		wi=322,wo=325,we=326,ui=336,
 		pt=338,cm=339,Ui=341}
-	type=0
+	local type=0
 	if horizontal[s]~=nil then type=1 end
 	if vertical[s]~=nil then type=2 end
 	if diphthong[s]~=nil then type=3 end
-	print(s,0,0)
 	return type
 
 end
 function stringToTable()
-s='j_eo--n_eun_  g_a_--b_i_'
+local s='j_eo--n_eun_  g_a_--b_i_'
 local t={{}}
-i=1
+local i=1
 while i<#s do
 	substring=string.sub(s,i,i+1)
 	if substring=='--' then 
@@ -145,11 +150,9 @@ while i<#s do
 	i=i+2
 end
 for i=1,#t do
-	if t[i]~=nil then
 	if t[i][1]~=1 then
-		vowel=t[i][2]
-			table.insert(t[i],vowelType(vowel))
-		end
+		local vowel=t[i][2]
+		table.insert(t[i],vowelType(vowel))
 	end
 end
 		return t
@@ -158,21 +161,14 @@ function horizontal(x,y,c1,v1,c2)
 	syllable(x,y,c1,v1,nil,nil,c2,8)
 end
 function matrix(s)
-	w=14
-	h=20
-	tiles={x=17,y=6}
-	syllables={
-		{1,'j_','eo'},{2,'n_','eu','n_'},
-		{1},
-		{1,'g_','a_'},{2,'b_','eu'},{1,'r_','i_'},{1,'O_','e_','l_'},
-		{1,'ng','i_'},{1,'ng','e_'},
-		{2,'ng','yo'}
-	}
-	syllables=stringToTable()
+	local w=14
+	local h=20
+	local tiles={x=17,y=6}
+	local syllables=stringToTable()
 	print(syllables[1][1],64,64)
 	for i=1,#syllables do 
-		cluster=syllables[i]
-		type=cluster[#cluster]--1]
+		local cluster=syllables[i]
+		local type=cluster[#cluster]--1]
 		local x=(i-1)*14
 		if type == 1 then
 			horizontal(x,
@@ -194,21 +190,25 @@ function hiatus(x,y,c1,v3,c2)
 end
 
 function syllable(x,y,c1,v1,v2,v3,c2,batchim)
-	transparent=12
-	if batchim==nil then batchim = 11 end
-	consonant={
-		hangul.consonants[c1],x,y,transparent
+	local transparent=12
+	if batchim==nil then 
+		batchim = 11 
+	end
+	local consonant={
+		hangul.consonants[c1],x,y,
+		transparent
 	}
-	rightVowel={
+	local rightVowel={
 		hangul.vowels[v1],x+6,y,transparent
 	}
-	downVowel={
+	local downVowel={
 		hangul.vowels[v2],x,y+5,transparent
 	}
-	finalConsonant={
-		hangul.consonants[c2],x,y+batchim,transparent
+	local finalConsonant={
+		hangul.consonants[c2],x,y+batchim,
+		transparent
 	}
-	diphthong={
+	local diphthong={
 		hangul.vowels[v3],x+4,y+5,12
 	}
 	sprite(consonant)
