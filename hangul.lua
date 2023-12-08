@@ -6,6 +6,8 @@
 -- version: 0.1
 -- script:  lua
 
+local sentence={'j_wo--n_eun_  g_wa--b_wi'}
+local sentenceId=1
 local tiles = 1<<0 -- 1
 local sprites = 1<<1 -- 2
 local map_ = 1<<2 -- 4
@@ -129,8 +131,7 @@ end
 
 function TIC()
 	input()
-	matrix()
-	stringToTable()
+	matrix(sentence[sentenceId])
 end
 
 function vowelType(s)
@@ -161,10 +162,9 @@ function vowelType(s)
 	end
 	
 	return type
-
 end
-function stringToTable()
-	local s='j_wo--n_eun_  g_wa--b_wi'
+
+function stringToTable(s)
 	local t={{}}
 	local i=1
 	while i<#s do
@@ -203,8 +203,10 @@ function matrix(s)
 	local w=14
 	local h=20
 	local tiles={x=17,y=6}
-	local syllables=stringToTable()
-
+	local syllables=stringToTable(s)
+	if #syllables<tiles.x then
+		print(syllables,100,100)
+	end
 	for i=1,#syllables do 
 		local cluster=syllables[i]
 		local type=cluster[#cluster]--1]
