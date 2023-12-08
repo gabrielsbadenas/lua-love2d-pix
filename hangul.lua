@@ -164,7 +164,7 @@ function vowelType(s)
 
 end
 function stringToTable()
-	local s='j_eo--n_eun_  g_a_--b_i_'
+	local s='j_wo--n_eun_  g_wa--b_wi'
 	local t={{}}
 	local i=1
 	while i<#s do
@@ -221,7 +221,7 @@ function matrix(s)
 		end
 		
 		if type == 3 then
-			diphthong(x,0,cluster[1],
+			hiatus(x,0,cluster[1],
 				cluster[2],cluster[3])
 		end	
 	end
